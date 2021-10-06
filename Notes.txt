@@ -1,0 +1,5 @@
+1. Create virtualenv and DL packages
+2. Add rest_framework and corsheaders in setting under INSTALLED_APP
+3. Add corsheaders.middleware.CorsMiddleware above CommonMiddleware
+4. Add CORS_ALLOWED_ORIGIN = ["http://localhost:4200","http://127.0.0.1:4200"]
+5. 
