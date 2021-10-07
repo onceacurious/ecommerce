@@ -1,7 +1,6 @@
 
 import os
 from pathlib import Path
-from decouple import config
 import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

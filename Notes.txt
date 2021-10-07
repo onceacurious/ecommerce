@@ -1,8 +1,26 @@
+INITIAL SETUP
 1. Create virtualenv and DL packages
 2. Add rest_framework and corsheaders in setting under INSTALLED_APP
 3. Add corsheaders.middleware.CorsMiddleware above CommonMiddleware
 4. Add CORS_ALLOWED_ORIGIN = ["http://localhost:4200","http://127.0.0.1:4200"]
-5. Add media folder in root, then add to settings.py MEDIA_URL = '/media/' and MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-6. Update the core urls. from django.conf.urls.static import static and from django.conf import settings. Then 
-7. Create .env.py file in root then move the secret key their and update the settings.py, install python-decouple; from decouple import config
-    Update the SECRET_KEY = config("SECRET_KEY")
+5. Create .env folder in root add secret.py then move the secret key their and update the settings.py
+    import json
+    f = open('.env\\secret.json')
+    secret = json.load(f)
+    SECRET_KEY = secret['SECRET_KEY']
+
+MEDIA SETUP
+1. Add media folder in root, then add to settings.py MEDIA_URL = '/media/' and MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+2. Update the core urls. from django.conf.urls.static import static and from django.conf import settings.
+    if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+STORE APP
+1. To import user: from django.contrib.auth.models import User
+2. Use ImageField for images
+3. To override admin naming convention:
+    Inside the class create
+        class Meta:
+            verbose_name_plural = "preferred_name"
+
+4. To make the field editable on the admin table inside the admin class include list_editable = ['field_name',]
