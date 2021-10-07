@@ -2,4 +2,7 @@
 2. Add rest_framework and corsheaders in setting under INSTALLED_APP
 3. Add corsheaders.middleware.CorsMiddleware above CommonMiddleware
 4. Add CORS_ALLOWED_ORIGIN = ["http://localhost:4200","http://127.0.0.1:4200"]
-5. 
+5. Add media folder in root, then add to settings.py MEDIA_URL = '/media/' and MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+6. Update the core urls. from django.conf.urls.static import static and from django.conf import settings. Then 
+7. Create .env.py file in root then move the secret key their and update the settings.py, install python-decouple; from decouple import config
+    Update the SECRET_KEY = config("SECRET_KEY")
