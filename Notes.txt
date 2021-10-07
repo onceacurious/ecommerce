@@ -24,3 +24,16 @@ STORE APP
             verbose_name_plural = "preferred_name"
 
 4. To make the field editable on the admin table inside the admin class include list_editable = ['field_name',]
+
+
+TESTING
+:install coverage
+1. Create a folder name tests then create test_models.py, test_views.py and __init__.py
+3. To run a test:
+    coverage run manage.py test
+    coverage report
+    coverage run --omit='*/venv/*' manage.py test
+    coverage html //to open in browser click the index.html copy path and paste on the browser
+
+SORT imports
+isort .
