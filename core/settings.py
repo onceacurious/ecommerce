@@ -25,8 +25,11 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
+    'django_countries',
 
     'store',
+    'basket',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +126,9 @@ CORS_ALLOWED_ORIGIN = [
     "mydomain.com",
     "127.0.0.1",
 ]
+
+
+# Custom user model
+AUTH_USER_MODEL = 'account.UserBase'
+LOGIN_REDIRECT_URL = ''
+LOGIN_URL = ''

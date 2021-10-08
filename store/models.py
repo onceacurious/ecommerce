@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
+from django.template.defaultfilters import slugify
 
 
 class Category(models.Model):
@@ -8,7 +9,7 @@ class Category(models.Model):
         def get_queryset(self):
             return super().get_queryset()
 
-    name = models.CharField(max_length=200, db_index=True)
+    name = models.CharField(max_length=200, db_index=True, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     objects = models.Manager()
     categories = CategoryManager()
@@ -18,6 +19,13 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        elif self.slug != self.name:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
 
 
 class Product(models.Model):
@@ -29,8 +37,8 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, related_name='product', on_delete=models.CASCADE)
     created_by = models.ForeignKey(
-        User, related_name='product_creator', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+        settings.AUTH_USER_MODEL, related_name='product_creator', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, unique=True)
     author = models.CharField(max_length=200, default='admin')
     description = models.TextField(blank=True)
     image = models.ImageField(
@@ -52,3 +60,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        elif self.slug != self.title:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)

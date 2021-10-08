@@ -16,15 +16,26 @@ MEDIA SETUP
         urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 STORE APP
-1. To import user: from django.contrib.auth.models import User
-2. Use ImageField for images
-3. To override admin naming convention:
+1. Import: To import user: from django.contrib.auth.models import User
+2. Model: Use ImageField for images and always include default image
+3. Admin: To override admin naming convention:
     Inside the class create
         class Meta:
             verbose_name_plural = "preferred_name"
+4. Admin: To make the field editable on the admin table inside the admin class include list_editable = ['field_name',]
+5. View: On creation ViewSets in views.py include:
+    lookup_field = ['slug] : if we want to you use slug in as url
 
-4. To make the field editable on the admin table inside the admin class include list_editable = ['field_name',]
+6. Model: On model creation, it is advisable to create a manager class inside the main class of each model
+    to have an option on model control and also to explicitly declare the:
+        objects = models.Manager()
+        field_name = ClassManager()
 
+7. Serializer: If planning to use slug in url include:
+    lookup_fields = ['slug']
+    extra_kwargs = {
+        'url': {'lookup_fields': 'slug'}
+    }
 
 TESTING
 :install coverage
@@ -37,3 +48,7 @@ TESTING
 
 SORT imports
 isort .
+
+SESSION
+:sample Basket
+1. 
